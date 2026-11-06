@@ -3,7 +3,12 @@ import subprocess
 import json
 from pathlib import Path
 
-GITLEAKS_PATH = r"C:\Tools\Gitleaks\gitleaks.exe"
+import os
+
+GITLEAKS_PATH = os.environ.get(
+    "GITLEAKS_PATH",
+    r"C:\Tools\Gitleaks\gitleaks.exe" if os.name == "nt" else "gitleaks"
+)
 
 
 def scan_project(project_path):

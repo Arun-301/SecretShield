@@ -1,5 +1,4 @@
-
-import unittest
+﻿import unittest
 import tempfile
 from pathlib import Path
 
@@ -19,8 +18,13 @@ class TestSecretShield(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temp_dir:
             test_file = Path(temp_dir) / "app.py"
 
+            fake_token = (
+                "ghp_" + "K8vQ2mN7" + "xR4pT9wB" +
+                "6cY3hJ5s" + "F1zD8aL0" + "qE2P"
+            )
+
             test_file.write_text(
-                'GITHUB_TOKEN = "ghp_K8vQ2mN7xR4pT9wB6cY3hJ5sF1zD8aL0qE2P"',
+                f'GITHUB_TOKEN = "{fake_token}"',
                 encoding="utf-8"
             )
 
