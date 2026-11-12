@@ -1,0 +1,9 @@
+
+useDefault = true
+
+[[allowlists]]
+description = "Ignore generated Python cache files"
+paths = [
+    '''(^|/)__pycache__/''',
+    '''\.py[co]$'''
+]

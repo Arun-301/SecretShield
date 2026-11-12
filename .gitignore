@@ -21,3 +21,14 @@ reports/*
 # Test artifacts
 .coverage
 .pytest_cache/
+redaction-test/
+test-workflow/
+test-workflows/
+
+# Local databases
+*.db
+*.sqlite
+*.sqlite3
+
+# Abandoned analyzer
+scanner/workflow_analyzer.py

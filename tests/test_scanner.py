@@ -1,8 +1,9 @@
-﻿import unittest
+﻿
+import unittest
 import tempfile
 from pathlib import Path
 
-from scanner.scanner import scan_project
+from scanner.scanner import scan_project, analyze_findings
 
 
 class TestSecretShield(unittest.TestCase):
@@ -32,6 +33,28 @@ class TestSecretShield(unittest.TestCase):
 
             self.assertEqual(result["status"], "FAILED")
             self.assertGreater(result["total_secrets"], 0)
+
+    def test_high_risk_classification(self):
+        findings = [
+            {"RuleID": "github-pat", "File": "app.py"}
+        ]
+
+        result = analyze_findings(findings)
+
+        self.assertEqual(result[0]["RiskLevel"], "HIGH")
+        self.assertIn("RiskReason", result[0])
+        self.assertIn("Remediation", result[0])
+
+    def test_medium_risk_classification(self):
+        findings = [
+            {"RuleID": "gcp-api-key", "File": "script.js"}
+        ]
+
+        result = analyze_findings(findings)
+
+        self.assertEqual(result[0]["RiskLevel"], "MEDIUM")
+        self.assertIn("RiskReason", result[0])
+        self.assertIn("Remediation", result[0])
 
 
 if __name__ == "__main__":
